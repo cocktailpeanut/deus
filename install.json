@@ -15,5 +15,16 @@
         "pip install -r requirements.txt"
       ]
     }
+  }, {
+    "method": "input",
+    "params": {
+      "title": "Install Finished",
+      "description": "Go back to the dashboard and launch the app!"
+    }
+  }, {
+    "method": "browser.open",
+    "params": {
+      "uri": "/?selected=deus"
+    }
   }]
 }

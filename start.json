@@ -4,13 +4,33 @@
     "params": {
       "path": "server",
       "venv": "env",
-      "message": "uvicorn app:app"
+      "message": "uvicorn app:app",
+      "on": [{
+        "event": "/(http:\/\/[0-9.:]+)/i",
+        "done": true
+      }]
     }
+  }, {
+    "method": "self.set",
+    "params": { "session.json": { "server": "{{input.event[1]}}" } }
   }, {
     "method": "shell.run",
     "params": {
       "path": "client",
-      "message": "npm run dev"
+      "message": "npm run dev",
+      "on": [{
+        "event": "/(http:\/\/[0-9.:]+)/i",
+        "done": true
+      }]
+    }
+  }, {
+    "method": "self.set",
+    "params": { "session.json": { "client": "{{input.event[1]}}" } }
+  }, {
+    "method": "browser.open",
+    "params": {
+      "uri": "{{self.session.client}}",
+      "target": "_blank"
     }
   }]
 }
