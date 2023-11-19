@@ -1,0 +1,19 @@
+{
+  "run": [{
+    "method": "shell.run",
+    "params": {
+      "path": "client",
+      "message": "npm install"
+    }
+  }, {
+    "method": "shell.run",
+    "params": {
+      "path": "server",
+      "venv": "env",
+      "message": [
+        "{{pip.install.torch}}",
+        "pip install -r requirements.txt"
+      ]
+    }
+  }]
+}

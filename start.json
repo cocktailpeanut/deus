@@ -1,0 +1,16 @@
+{
+  "run": [{
+    "method": "shell.run",
+    "params": {
+      "path": "server",
+      "venv": "env",
+      "message": "uvicorn app:app"
+    }
+  }, {
+    "method": "shell.run",
+    "params": {
+      "path": "client",
+      "message": "npm run dev"
+    }
+  }]
+}

@@ -1,0 +1,9 @@
+diffusers
+transformers
+accelerate
+peft
+imageio
+fastapi[all]
+pillow
+httpx
+starlette
