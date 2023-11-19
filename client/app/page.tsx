@@ -2,8 +2,6 @@
 import Image from 'next/image'
 import React, { useEffect, useState, useRef } from "react";
 import Select from 'react-select'
-import { Buffer } from 'node:buffer'
-import { getSvgAsImage } from "@/lib/getSvgAsImage";
 export default function Home() {
   const [mod, setMod] = useState(null)
   const [Excalidraw, setExcalidraw] = useState(null);
@@ -28,7 +26,6 @@ export default function Home() {
   const [img, setImg] = useState("")
   const [p, setP] = useState("")
   const [sketch, setSketch] = useState("")
-//  globalThis.Buffer = Buffer
   const [excalidrawAPI, setExcalidrawAPI] = useState(null);
   const [loading, setLoading] = useState(false);
   const [snapshot, setSnapshot] = useState({ prompt: "", image: "" })
