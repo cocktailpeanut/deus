@@ -19,7 +19,7 @@
       "path": "client",
       "message": "npm run dev",
       "on": [{
-        "event": "/(http:\/\/[0-9.:]+)/i",
+        "event": "/(http:\/\/[a-z0-9.:]+)/i",
         "done": true
       }]
     }
