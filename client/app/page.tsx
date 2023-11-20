@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import React, { useEffect, useState, useRef } from "react";
 import Select from 'react-select'
-import { useDebounce, blobToBase64 } from '../lib/utils.js";
+import { useDebounce, blobToBase64 } from '../lib/utils.js';
 export default function Home() {
   useEffect(() => {
     import("excalidraw-cp").then((comp) => {
