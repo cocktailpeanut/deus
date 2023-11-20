@@ -55,7 +55,7 @@ Just find DEUS from [Pinokio](https://pinokio.computer) and click "Install":
 
 1-Click Install link: https://pinokio.computer/item?uri=https://github.com/cocktailpeanut/deus
 
-![install.gif](install.gif)
+![installer.gif](installer.gif)
 
 ## Manual Install
 
@@ -93,7 +93,7 @@ npm install
 
 When using Pinokio, all you need to do is just click "Launch" from Pinokio:
 
-![install.gif](install.gif)
+![installer.gif](installer.gif)
 
 ## Manual Launch
 
