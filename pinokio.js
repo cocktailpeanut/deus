@@ -1,5 +1,7 @@
 module.exports = {
   title: "DEUS",
+  description: "A Realtime Creation Engine",
+  icon: "icon.png",
   menu: async (kernel) => {
     let server_installed = await kernel.exists(__dirname, "server", "env")
     let client_installed = await kernel.exists(__dirname, "client", "node_modules")
