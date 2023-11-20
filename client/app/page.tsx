@@ -97,7 +97,7 @@ export default function Home() {
             <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-black"></div>
           </div>
         ) : (
-          <button className="bg-gray-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded =" style={{marginLeft: "10px", fontSize: "14px", textTransform: "uppercase" }} onClick={manualRefresh}>
+          <button className="bg-gray-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded =" style={{marginLeft: "10px", fontSize: "14px", textTransform: "uppercase" }} onClick={refresh}>
             <div className="flex justify-center items-center ">
               Create
             </div>
