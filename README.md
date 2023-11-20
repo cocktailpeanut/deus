@@ -7,11 +7,17 @@ DEUS is a super flexible REALTIME image generation engine, powered by StableDiff
 ![owl.gif](owl.gif)
 
 
+# What is different about deus?
+
+1. **Realtime Native:** Unlike many image generation web UIs, DEUS is designed from scratch with an assumption that images are generated in realtime, which opens doors to various unique features.
+2. **Simple:** If you know how to use Google, and know how to draw, you know how to use DEUS.
+3. **Intutitive:** Just enter what you want, drag and drop images, and draw. The combination of these simple actions lets you gradually create exactly what you want, without having to learn any complicated tech and jargon.
+
 # Features
 
 ## 1. Text Prompt
 
-Generate images in realtiem as you type
+Generate images in realtime as you type
 
 ![prompt.gif](prompt.gif)
 
@@ -23,7 +29,7 @@ Draw things onto the canvas to generate images in realtime
 
 ## 3. Remix
 
-The fluid UI lets you "breed" new images simply by dragging and dropping generated images into the canvas.
+The ultra-fluid UI lets you "breed" new images simply by dragging and dropping generated images into the canvas.
 
 ![dragdrop.gif](dragdrop.gif)
 
@@ -55,9 +61,15 @@ cd deus
 Next, move in to the server folder with `cd server`, and install the server:
 
 ```
+# create a venv
 python -m venv env
 source env/bin/activate
+
+# Install the correct version of pytorch for your machine
 npx torchcraft
+pip install -r torchcraft.txt
+
+# Install the rest of the requirements
 pip install -r requirements.txt
 ```
 
