@@ -7,6 +7,12 @@ DEUS is a super flexible REALTIME image generation engine, powered by StableDiff
 ![owl.gif](owl.gif)
 
 
+# How it works
+
+Watch the video:
+
+[![poster.png](poster.png)](https://www.youtube.com/watch?v=g8OiyHjlbbM)
+
 # What is different about deus?
 
 1. **Realtime Native:** Unlike many image generation web UIs, DEUS is designed from scratch with an assumption that images are generated in realtime, which opens doors to various unique features.
