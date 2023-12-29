@@ -1,5 +1,7 @@
 import torch
 from diffusers import DiffusionPipeline
+from transformers import set_seed
+
 class Engine:
   def __init__(self):
     mps_available = hasattr(torch.backends, "mps") and torch.backends.mps.is_available()
@@ -24,17 +26,17 @@ class Engine:
     self.pipe.to(torch_device=self.torch_device, torch_dtype=self.torch_dtype).to(self.device)
     self.pipe.set_progress_bar_config(disable=True)
 
-  def generate(self, prompt, input_image):
-    #image = pipe(prompt, image=input_image, num_inference_steps=4, guidance_scale=8.0, lcm_origin_steps=50, strength=0.8).images[0]
-    image = self.pipe(
-      prompt,
-      image=input_image,
-      num_inference_steps=4,
-      guidance_scale=1.0,
-#      guidance_scale=0.7,
-      lcm_origin_steps=50,
-      strength=0.8
-#      strength=1
-    ).images[0]
-    #return image.resize((768, 768))
-    return image.resize((512,512))
+  def generate(self, prompt, input_image, seed=0, num_inference_steps=4, guidance_scale=8, lcm_origin_steps=200, strength=0.8):
+        
+        set_seed(seed)  # Set the seed
+
+        image = self.pipe(
+            prompt,
+            image=input_image,
+            num_inference_steps=num_inference_steps,
+            guidance_scale=guidance_scale,
+            lcm_origin_steps=lcm_origin_steps,
+            strength=strength
+        ).images[0]
+
+        return image.resize((512,512))

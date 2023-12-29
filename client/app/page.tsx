@@ -25,10 +25,19 @@ export default function Home() {
   const [Excalidraw, setExcalidraw] = useState(null);
   const [items, setItems] = useState([])
   const [p, setP] = useState("")
-  const [sketch, setSketch] = useState("")
+  const [sketch, setSketch] = useState("0")
   const [excalidrawAPI, setExcalidrawAPI] = useState(null);
   const [loading, setLoading] = useState(false);
   const [snapshot, setSnapshot] = useState({ prompt: "", image: "" })
+
+  // Add state variables for new parameters
+  const [numInferenceSteps, setNumInferenceSteps] = useState(8);
+  const [seed, setSeed] = useState("0");
+
+  const [guidanceScale, setGuidanceScale] = useState(7.5);
+  const [lcmOriginSteps, setLcmOriginSteps] = useState(200);
+  const [strength, setStrength] = useState(0.8);
+
   async function _refresh(elements, appState, files, force) {
     if (elements.length === 0 && p.trim().length === 0) {
       return;
@@ -50,13 +59,23 @@ export default function Home() {
     setSnapshot({ prompt: p, image: dataUrl })
     setLoading(true)
     const b64 = dataUrl.replace('data:image/png;base64,','')
+    
     const result = await fetch(predict_url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt: p, img: b64, })
-    }).then((res) => {
-      return res.json()
-    })
+      body: JSON.stringify({
+      prompt: p,
+      img: b64,
+      seed:seed,
+      num_inference_steps: numInferenceSteps,
+      guidance_scale: guidanceScale,
+      lcm_origin_steps: lcmOriginSteps,
+      strength: strength
+    }
+  )
+}).then((res) => {
+  return res.json();
+});
     const url = `${server_url}/${result.filename}`
     setItems([url].concat(items))
     setLoading(false)
@@ -104,6 +123,62 @@ export default function Home() {
           </button>
         )}
       </div>
+  <div style={{ display: 'flex', justifyContent: 'start', alignItems: 'center', padding: '5px',  margin: '5 30px', backgroundColor: '#f0f0f0' }}>
+  <div>
+    <label htmlFor="seed">Seed: </label>
+    <input
+      id="seed"
+      type="text"
+      placeholder="0 = random"
+      step="1"
+      value={seed}
+      onChange={(e) => setSeed(e.target.value)}
+      style={{ margin: '5px 30px', padding: '5px', width: '100px' }}
+    />
+    <label htmlFor="numInferenceSteps">Num Inference Steps: </label>
+    <input
+      id="numInferenceSteps"
+      type="number"
+      min="1"
+      max="50"
+      value={numInferenceSteps}
+      onChange={(e) => setNumInferenceSteps(e.target.value)}
+      style={{ margin: '5 30px', padding: '5px' , width: '100px'}}
+    />
+    <label htmlFor="guidanceScale">Guidance Scale: </label>
+    <input
+      id="guidanceScale"
+      type="number"
+      min="0"
+      max="30"
+      step="0.5"
+      value={guidanceScale}
+      onChange={(e) => setGuidanceScale(e.target.value)}
+      style={{ margin: '5 30px', padding: '5px' , width: '100px'}}
+    />
+    <label htmlFor="lcmOriginSteps">LCM Origin Steps: </label>
+    <input
+      id="lcmOriginSteps"
+      min="1"
+      max="500"
+      type="number"
+      value={lcmOriginSteps}
+      onChange={(e) => setLcmOriginSteps(e.target.value)}
+     style={{ margin: '5 30px', padding: '5px', width: '100px' }}
+    />
+    <label htmlFor="strength">Strength: </label>
+    <input
+      id="strength"
+      type="number"
+      min="0.1"  
+      max="1"  
+      step="0.025"
+      value={strength}
+      onChange={(e) => setStrength(e.target.value)}
+      style={{ margin: '0 30px', padding: '5px' , width: '100px'}}
+    />
+  </div>
+</div>
       <div style={{flexGrow: 1, display: "flex", overflow: "auto" }}>
         <div style={{ flexGrow: 1, height: "100%" }}>
           {Excalidraw && <Excalidraw excalidrawAPI={(api)=> setExcalidrawAPI(api)} onChange={canvasUpdated} proxy={proxy_url} onLibraryChange={onLibraryChange}/> }

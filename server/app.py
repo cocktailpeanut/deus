@@ -14,11 +14,16 @@ import httpx
 from starlette.requests import Request
 from starlette.responses import StreamingResponse
 from starlette.background import BackgroundTask
+import random
 
 class Req(BaseModel):
   prompt: str
   img: str
-
+  seed:int = None
+  num_inference_steps: int = 8
+  guidance_scale: float = 8.0
+  lcm_origin_steps: int = 200
+  strength: float = 0.8
 running = False
 last = None
 
@@ -72,8 +77,17 @@ def predict(req: Req):
     img = img.convert('RGB')
     img = img.resize((512,512))
 
-    generated = engine.generate(req.prompt,img) 
-    filename = f"static/{str(int(time.time_ns() / 1e6))}.png"
+    if  req.seed == 0:
+        req.seed = random.randint(1, 2**32 - 1)
+    
+
+    # Assuming the parameters are received in a variable named `req`
+    generated = engine.generate(req.prompt, img, num_inference_steps=req.num_inference_steps, seed=req.seed, guidance_scale=req.guidance_scale, lcm_origin_steps=req.lcm_origin_steps, strength=req.strength)
+
+    timestamp = str(int(time.time_ns() / 1e6))
+    seed_str = str(req.seed)
+    filename = f"static/{timestamp}_{seed_str}.png"
+    
     last = filename
     imageio.imsave(filename, generated)
 
